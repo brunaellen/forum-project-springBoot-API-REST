@@ -1,11 +1,11 @@
-package br.com.alura.modelo;
+package br.com.alura.model;
 
-public class Usuario {
+public class User {
 
   private Long id;
-  private String nome;
+  private String name;
   private String email;
-  private String senha;
+  private String password;
 
   @Override
   public int hashCode() {
@@ -23,7 +23,7 @@ public class Usuario {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Usuario other = (Usuario) obj;
+    User other = (User) obj;
     if (id == null) {
       if (other.id != null)
         return false;
@@ -40,12 +40,12 @@ public class Usuario {
     this.id = id;
   }
 
-  public String getNome() {
-    return nome;
+  public String getName() {
+    return name;
   }
 
-  public void setNome(String nome) {
-    this.nome = nome;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getEmail() {
@@ -56,12 +56,11 @@ public class Usuario {
     this.email = email;
   }
 
-  public String getSenha() {
-    return senha;
+  public String getPassword() {
+    return password;
   }
 
-  public void setSenha(String senha) {
-    this.senha = senha;
+  public void setPassword(String password) {
+    this.password = password;
   }
-
 }

@@ -13,7 +13,7 @@
   <artifactId>forumAlura</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>forumAlura</name>
-  <description>projeto criado durante o curso de spring Boot API REST: construa uma API</description>
+  <description>project created during the spring Boot API REST course: create an API</description>
 
   <properties>
     <java.version>11</java.version>
