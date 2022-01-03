@@ -13,6 +13,9 @@ public class Course {
   private Long id;
   private String name;
   private String category;
+  
+  public Course() {
+  }
 
   public Course(String name, String category) {
     this.name = name;
