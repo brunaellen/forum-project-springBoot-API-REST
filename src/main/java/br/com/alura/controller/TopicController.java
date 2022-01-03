@@ -1,24 +1,24 @@
 package br.com.alura.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alura.controller.dto.TopicDto;
-import br.com.alura.model.Course;
-import br.com.alura.model.Topic;
+import br.com.alura.service.TopicService;
 
 @RestController
-public class TopicsController {
+public class TopicController {
+  
+  @Autowired
+  private TopicService topicService;
   
   @RequestMapping("/topics")
   @ResponseBody
   public List<TopicDto> listing() {
-    Topic topicExample = new Topic("query", "query using Spring",
-        new Course("Spring", "Programming"));
-    return TopicDto.convertATopicListToTopicDtoList(Arrays.asList(topicExample, topicExample, topicExample));
+    return TopicDto.convertATopicListToTopicDtoList(topicService.getAllTopics());
   }
 }
