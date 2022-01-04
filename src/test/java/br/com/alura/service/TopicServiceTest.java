@@ -16,7 +16,7 @@ import br.com.alura.model.Course;
 import br.com.alura.model.Topic;
 import br.com.alura.repository.TopicRepository;
 
-@SpringBootTest
+@SpringBootTest(classes = {TopicService.class})
 class TopicServiceTest {
   
   @Autowired
