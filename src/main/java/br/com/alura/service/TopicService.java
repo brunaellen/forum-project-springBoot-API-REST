@@ -17,4 +17,8 @@ public class TopicService {
   public List<TopicDto> getAllTopics() {
     return TopicDto.convertATopicListToTopicDtoList(topicRepository.findAll());
   }
+
+  public List<TopicDto> getTopicsByCourseName(String courseName) {
+    return TopicDto.convertATopicListToTopicDtoList(topicRepository.findByCourse_Name(courseName));
+  }
 }

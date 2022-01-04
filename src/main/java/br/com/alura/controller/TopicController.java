@@ -18,7 +18,11 @@ public class TopicController {
   
   @RequestMapping("/topics")
   @ResponseBody
-  public List<TopicDto> listing() {
-    return topicService.getAllTopics();
+  public List<TopicDto> listing(String courseName) {
+    if(courseName == null) {
+      return topicService.getAllTopics();
+    } else {
+      return topicService.getTopicsByCourseName(courseName);
+    }
   }
 }
