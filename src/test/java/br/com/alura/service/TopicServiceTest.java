@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import br.com.alura.controller.dto.TopicDto;
 import br.com.alura.model.Topic;
 import br.com.alura.repository.TopicRepository;
 
@@ -26,7 +27,7 @@ class TopicServiceTest {
   private TopicRepository topicRepository;
   
   @Test
-  void getAllTopics_shouldReturnAListOfAllTopic() {
+  void getAllTopics_shouldReturnAListOfAllTopicDto() {
     List<Topic> listOfTopics = new ArrayList<>();
     Topic firstTopic = new Topic();
     Topic secondTopic = new Topic();
@@ -34,10 +35,10 @@ class TopicServiceTest {
     listOfTopics = Arrays.asList(firstTopic, secondTopic);
     
     when(topicRepository.findAll()).thenReturn(listOfTopics);
-    List<Topic> listAllTopics = topicService.getAllTopics();
+    List<TopicDto> listAllTopicsDto = topicService.getAllTopics();
 
-    assertThat(listAllTopics).isNotNull();
-    assertThat(listAllTopics.size()).isEqualTo(2);
-    assertThat(listAllTopics.get(0)).hasFieldOrPropertyWithValue("title", "first title");
+    assertThat(listAllTopicsDto).isNotNull();
+    assertThat(listAllTopicsDto.size()).isEqualTo(2);
+    assertThat(listAllTopicsDto.get(0)).hasFieldOrPropertyWithValue("title", "first title");
   }
 }

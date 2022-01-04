@@ -19,6 +19,6 @@ public class TopicController {
   @RequestMapping("/topics")
   @ResponseBody
   public List<TopicDto> listing() {
-    return TopicDto.convertATopicListToTopicDtoList(topicService.getAllTopics());
+    return topicService.getAllTopics();
   }
 }
