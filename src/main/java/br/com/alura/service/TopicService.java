@@ -31,7 +31,9 @@ public class TopicService {
   
   public void registerATopic(TopicForm topicForm,String courseName) {
     Course course = courseRepository.findByName(courseName);
-    Topic topic = new Topic(topicForm.getTitle(), topicForm.getMessage(), course);
+    String title = topicForm.getTitle();
+    String message = topicForm.getMessage();
+    Topic topic = new Topic(title, message, course);
     topicRepository.save(topic);
   }
 }
