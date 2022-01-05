@@ -33,7 +33,7 @@ public class TopicService {
     Course course = courseRepository.findByName(courseName);
     String title = topicForm.getTitle();
     String message = topicForm.getMessage();
-    Topic topic = new Topic(title, message, course);
+    Topic topic = new Topic(title, message , course);
     topicRepository.save(topic);
   }
 }
