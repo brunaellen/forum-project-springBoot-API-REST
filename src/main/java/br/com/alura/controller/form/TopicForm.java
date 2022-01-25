@@ -1,8 +1,17 @@
 package br.com.alura.controller.form;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 public class TopicForm {
+  
+  @NotNull @NotEmpty @Length(min = 5)
   private String title;
+  @NotNull @NotEmpty @Length(min = 10)
   private String message;
+  @NotNull @NotEmpty
   private String courseName;
   
   public String getTitle() {
