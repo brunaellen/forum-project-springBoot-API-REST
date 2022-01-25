@@ -14,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import br.com.alura.controller.dto.TopicDto;
 import br.com.alura.model.Course;
 import br.com.alura.model.Topic;
+import br.com.alura.repository.CourseRepository;
 import br.com.alura.repository.TopicRepository;
 
 @SpringBootTest(classes = {TopicService.class})
@@ -21,6 +22,9 @@ class TopicServiceTest {
   
   @Autowired
   private TopicService topicService;
+  
+  @MockBean
+  private CourseRepository courseRepository;
   
   @Autowired
   @MockBean
