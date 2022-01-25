@@ -1,5 +1,6 @@
 package br.com.alura.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.alura.controller.dto.TopicDto;
 import br.com.alura.controller.form.TopicForm;
+import br.com.alura.model.Topic;
 import br.com.alura.repository.CourseRepository;
 import br.com.alura.service.TopicService;
 
@@ -35,7 +38,10 @@ public class TopicController {
   }
   
   @PostMapping
-  public ResponseEntity<TopicDto> register(@RequestBody TopicForm topicForm, String courseName) {
-    topicService.registerATopic(topicForm, courseName);
+  public ResponseEntity<TopicDto> register(@RequestBody TopicForm topicForm, String courseName, UriComponentsBuilder uriBuilder) {
+    Topic topic = topicService.registerATopic(topicForm, courseName);
+    
+    URI uri = uriBuilder.path("topics/{id}").buildAndExpand(topic.getId()).toUri();
+    return ResponseEntity.created(uri).body(new TopicDto(topic));
   }
 }
