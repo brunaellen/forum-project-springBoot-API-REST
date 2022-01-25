@@ -29,11 +29,11 @@ public class TopicService {
     return TopicDto.convertATopicListToTopicDtoList(topicRepository.findByCourse_Name(courseName));
   }
   
-  public void registerATopic(TopicForm topicForm,String courseName) {
+  public Topic registerATopic(TopicForm topicForm,String courseName) {
     Course course = courseRepository.findByName(courseName);
     String title = topicForm.getTitle();
     String message = topicForm.getMessage();
     Topic topic = new Topic(title, message , course);
-    topicRepository.save(topic);
+    return topicRepository.save(topic);
   }
 }
