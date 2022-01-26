@@ -8,12 +8,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.alura.controller.dto.DetailsOfATopicDto;
 import br.com.alura.controller.dto.TopicDto;
 import br.com.alura.controller.form.TopicForm;
 import br.com.alura.model.Topic;
@@ -31,7 +33,7 @@ public class TopicController {
   CourseRepository courseRepository;
   
   @GetMapping
-  public List<TopicDto> listing(String courseName) {
+  public List<TopicDto> listAll(String courseName) {
     if(courseName == null) {
       return topicService.getAllTopics();
     } else {
@@ -45,5 +47,10 @@ public class TopicController {
     
     URI uri = uriBuilder.path("topics/{id}").buildAndExpand(topic.getId()).toUri();
     return ResponseEntity.created(uri).body(new TopicDto(topic));
+  }
+  
+  @GetMapping("/{id}")
+  public DetailsOfATopicDto detail(@PathVariable Long id) {
+    return topicService.getATopicDetails(id);
   }
 }

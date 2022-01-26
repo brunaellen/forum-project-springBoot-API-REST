@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.alura.controller.dto.DetailsOfATopicDto;
 import br.com.alura.controller.dto.TopicDto;
 import br.com.alura.controller.form.TopicForm;
 import br.com.alura.model.Course;
@@ -35,5 +36,12 @@ public class TopicService {
     String message = topicForm.getMessage();
     Topic topic = new Topic(title, message , course);
     return topicRepository.save(topic);
+  }
+  
+  public DetailsOfATopicDto getATopicDetails(Long id) {
+    Topic topic = topicRepository.getById(id);
+    DetailsOfATopicDto detailsOfATopicDto = new DetailsOfATopicDto(topic);
+    detailsOfATopicDto.setAnswers(topic);
+    return detailsOfATopicDto;
   }
 }
