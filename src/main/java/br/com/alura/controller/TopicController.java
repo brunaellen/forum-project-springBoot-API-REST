@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,6 @@ import br.com.alura.controller.dto.TopicDto;
 import br.com.alura.controller.dto.TopicFormDto;
 import br.com.alura.controller.dto.UpdateTopicFormDto;
 import br.com.alura.model.Topic;
-import br.com.alura.repository.CourseRepository;
 import br.com.alura.service.TopicService;
 
 @RequestMapping("/topics")
@@ -31,9 +31,6 @@ public class TopicController {
   
   @Autowired
   private TopicService topicService;
-  
-  @Autowired
-  CourseRepository courseRepository;
   
   @GetMapping
   public List<TopicDto> listAll(String courseName) {
@@ -61,7 +58,13 @@ public class TopicController {
   @Transactional
   public ResponseEntity<TopicDto> update(@PathVariable Long id, @RequestBody @Valid UpdateTopicFormDto updateTopicForm) {
     TopicDto topicDto = topicService.updateATopic(id, updateTopicForm);
-    return ResponseEntity.ok(topicDto);
-    
+    return ResponseEntity.ok(topicDto); 
+  }
+  
+  @DeleteMapping("/{id}")
+  @Transactional
+  public ResponseEntity<?> delete(@PathVariable Long id) {
+    topicService.deleteATopic(id);
+    return ResponseEntity.ok().build();
   }
 }

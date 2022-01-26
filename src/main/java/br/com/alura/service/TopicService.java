@@ -55,4 +55,8 @@ public class TopicService {
     topic.setMessage(updateTopicForm.getMessage());
     return new TopicDto(topic);
   }
+
+  public void deleteATopic(Long id) {
+    topicRepository.deleteById(id);
+  }
 }
