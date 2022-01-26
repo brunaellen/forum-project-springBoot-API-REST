@@ -2,12 +2,15 @@ package br.com.alura.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.alura.controller.dto.DetailsOfATopicDto;
 import br.com.alura.controller.dto.TopicDto;
-import br.com.alura.controller.form.TopicForm;
+import br.com.alura.controller.dto.TopicFormDto;
+import br.com.alura.controller.dto.UpdateTopicFormDto;
 import br.com.alura.model.Course;
 import br.com.alura.model.Topic;
 import br.com.alura.repository.CourseRepository;
@@ -30,7 +33,7 @@ public class TopicService {
     return TopicDto.convertATopicListToTopicDtoList(topicRepository.findByCourse_Name(courseName));
   }
   
-  public Topic registerATopic(TopicForm topicForm,String courseName) {
+  public Topic registerATopic(TopicFormDto topicForm,String courseName) {
     Course course = courseRepository.findByName(courseName);
     String title = topicForm.getTitle();
     String message = topicForm.getMessage();
@@ -43,5 +46,13 @@ public class TopicService {
     DetailsOfATopicDto detailsOfATopicDto = new DetailsOfATopicDto(topic);
     detailsOfATopicDto.setAnswers(topic);
     return detailsOfATopicDto;
+  }
+
+  
+  public TopicDto updateATopic(Long id, @Valid UpdateTopicFormDto updateTopicForm) {
+    Topic topic = topicRepository.getById(id);
+    topic.setTitle(updateTopicForm.getTitle());
+    topic.setMessage(updateTopicForm.getMessage());
+    return new TopicDto(topic);
   }
 }
