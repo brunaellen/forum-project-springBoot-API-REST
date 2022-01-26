@@ -1,11 +1,11 @@
-package br.com.alura.controller.form;
+package br.com.alura.controller.dto;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-public class TopicForm {
+public class TopicFormDto {
   
   @NotNull @NotEmpty @Length(min = 5)
   private String title;
