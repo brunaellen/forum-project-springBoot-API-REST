@@ -13,7 +13,13 @@ public class TopicFormDto {
   private String message;
   @NotNull @NotEmpty
   private String courseName;
-  
+
+  public TopicFormDto(String title, String message, String courseName) {
+    this.title = title;
+    this.message = message;
+    this.courseName = courseName;
+  }
+
   public String getTitle() {
     return title;
   }

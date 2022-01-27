@@ -19,6 +19,9 @@ public class TopicDto {
     this.dateOfCriation = topic.getDateOfCriation();
   }
 
+  public TopicDto() {
+  }
+
   public Long getId() {
     return id;
   }

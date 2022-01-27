@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import br.com.alura.controller.dto.TopicDto;
+import br.com.alura.controller.dto.TopicFormDto;
 import br.com.alura.model.Course;
 import br.com.alura.model.Topic;
 import br.com.alura.repository.CourseRepository;
@@ -46,6 +47,11 @@ class TopicServiceTest {
   }
   
   @Test
+  void getAllTopics_shouldReturnAnEmptyListIfThereAreNoTopics() {
+    assertThat(topicService.getAllTopics()).isEmpty();
+  }
+  
+  @Test
   void getTopicsByCourseName_GivenACourseName_shouldReturnAListOfAllTopicDto() {
     Topic firstTopic = new Topic();
     Topic secondTopic = new Topic();
@@ -57,6 +63,29 @@ class TopicServiceTest {
     List<TopicDto> listTopicsDtoByCourseName = topicService.getTopicsByCourseName("Spring Boot");
     assertThat(listTopicsDtoByCourseName).isNotNull();
     assertThat(listTopicsDtoByCourseName.size()).isEqualTo(2);
+  }
+  
+  @Test
+  void getTopicsByCourseName_shouldReturnAnEmptyList_IfThereAreNoMatchesForTheGivenCourseName() {
+    assertThat(topicService.getTopicsByCourseName("Spring Boot")).isEmpty();
+  }
+  
+  @Test
+  void registerATopic_givenATopicFormAndCourse_shouldReturnTheSavedTopicAsATopicDto() {
+    Course course = new Course("course name", "course category");   
+    TopicFormDto topicFormDto = new TopicFormDto("title", "message", course.getName());
+
+    Topic topic = new Topic(topicFormDto.getTitle(), topicFormDto.getMessage() , course);
+    
+    when(topicRepository.save(new Topic("title", "message" , course))).thenReturn(topic);
+    
+    assertThat(topicService.registerATopic(topicFormDto, course)).isInstanceOf(TopicDto.class);
+    
+    assertThat(topicService.registerATopic(topicFormDto, course))
+      .hasFieldOrPropertyWithValue("title", "title");
+    
+    assertThat(topicService.registerATopic(topicFormDto, course))
+    .hasFieldOrPropertyWithValue("message", "message");
   }
 }
 
