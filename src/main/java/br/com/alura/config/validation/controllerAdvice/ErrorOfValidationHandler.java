@@ -1,4 +1,4 @@
-package br.com.alura.config.validation;
+package br.com.alura.config.validation.controllerAdvice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import br.com.alura.config.validation.FormException;
 
 @RestControllerAdvice
 public class ErrorOfValidationHandler {

@@ -27,14 +27,10 @@ import br.com.alura.model.Course;
 import br.com.alura.model.Topic;
 import br.com.alura.repository.CourseRepository;
 import br.com.alura.repository.TopicRepository;
-import br.com.alura.service.TopicService;
 
 @RequestMapping("/topics")
 @RestController
 public class TopicController {
-  
-  @Autowired
-  private TopicService topicService;
   
   @Autowired
   private CourseRepository courseRepository;
@@ -44,12 +40,13 @@ public class TopicController {
   
   @GetMapping("/listAll")
   public ResponseEntity<List<TopicDto>> listAll() {
-    List<TopicDto> allTopics = topicService.getAllTopics();
+    List<Topic> allTopics = topicRepository.findAll();
     
     if(allTopics.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
-    return ResponseEntity.ok(allTopics);
+    
+    return ResponseEntity.ok(TopicDto.convertATopicListToTopicDtoList(allTopics));
   }
   
   @GetMapping("/listByCourseName")
@@ -57,8 +54,10 @@ public class TopicController {
     if(courseName == null || courseName.isBlank()) {
       return ResponseEntity.badRequest().build();
     }
-    
-    List<TopicDto> topicDtoList = topicService.getTopicsByCourseName(courseName);
+
+    List<TopicDto> topicDtoList = TopicDto
+        .convertATopicListToTopicDtoList(topicRepository
+        .findByCourse_Name(courseName));
     
     if(topicDtoList.isEmpty()){
       return ResponseEntity.notFound().build();
@@ -75,7 +74,8 @@ public class TopicController {
       return ResponseEntity.notFound().build();
     }
 
-    TopicDto topicDto = topicService.registerATopic(topicForm, course.get());
+    Topic topic = topicRepository.save(new Topic(topicForm.getTitle(), topicForm.getMessage() , course.get()));
+    TopicDto topicDto = new TopicDto(topic);
 
     URI uri = uriBuilder.path("topics/{id}").buildAndExpand(topicDto.getId()).toUri();
     return ResponseEntity.created(uri).body(topicDto);
