@@ -23,16 +23,12 @@ import br.com.alura.model.Course;
 import br.com.alura.model.Topic;
 import br.com.alura.repository.CourseRepository;
 import br.com.alura.repository.TopicRepository;
-import br.com.alura.service.TopicService;
 
 @WebMvcTest(controllers = {TopicController.class})
 class TopicControllerTest {
   
   @Autowired
   private MockMvc mockMvc;
-  
-  @MockBean
-  private TopicService topicService;
   
   @MockBean
   private CourseRepository courseRepository;
