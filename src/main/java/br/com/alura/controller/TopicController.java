@@ -97,15 +97,15 @@ public class TopicController {
   
   @PutMapping("/update/{id}")
   @Transactional
-  public ResponseEntity<TopicDto> update(@PathVariable Long id, @RequestBody @Valid UpdateTopicFormDto updateTopicForm) {
+  public ResponseEntity<TopicDto> update(@PathVariable Long id, @RequestBody @Valid UpdateTopicFormDto updateTopicFormDto) {
     Optional<Topic> topic = topicRepository.findById(id);
     
     if(topic.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
     
-    topic.get().setTitle(updateTopicForm.getTitle());
-    topic.get().setMessage(updateTopicForm.getMessage());
+    topic.get().setTitle(updateTopicFormDto.getTitle());
+    topic.get().setMessage(updateTopicFormDto.getMessage());
     
     return ResponseEntity.ok(new TopicDto(topic.get())); 
   }
