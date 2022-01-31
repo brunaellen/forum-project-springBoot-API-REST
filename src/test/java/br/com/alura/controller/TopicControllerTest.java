@@ -1,8 +1,10 @@
 package br.com.alura.controller;
 
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -21,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import br.com.alura.controller.dto.TopicFormDto;
 import br.com.alura.model.Course;
 import br.com.alura.model.Topic;
+import br.com.alura.model.User;
 import br.com.alura.repository.CourseRepository;
 import br.com.alura.repository.TopicRepository;
 
@@ -109,7 +112,7 @@ class TopicControllerTest {
   }
   
   @Test
-  void register_givenATopicForm_shouldReturnStatusCreated_and_TheRegisteredTopic() throws Exception {
+  void register_givenATopicFormDto_shouldReturnStatusCreated_and_TheRegisteredTopic() throws Exception {
     Course course = new Course("course name", "category");
     TopicFormDto topicFormDto = new TopicFormDto("title test", "just a message test", course.getName());
     
@@ -154,6 +157,87 @@ class TopicControllerTest {
           .contentType(MediaType.APPLICATION_JSON)
           .accept(MediaType.APPLICATION_JSON))
       .andDo(print())
+      .andExpect(status().isNotFound());
+  }
+  
+  @Test
+  void detail_givenAnId_shouldReturnTheTopicDetails() throws Exception {
+    Topic topic = new Topic("topic title", "topic message", new User(), new Course());
+    topic.setId(1L);
+    
+    when(topicRepository.findById(1L)).thenReturn(Optional.of(topic));
+    
+    mockMvc
+    .perform(get("/topics/details/1"))
+    .andDo(print())
+    .andExpect(status().isOk())
+    .andExpect(jsonPath("$.title").value("topic title"))
+    .andExpect(jsonPath("$.message").value("topic message"));
+  }
+  
+  @Test
+  void detail_shouldReturnStatusNotFound_ifThereIsNoTopicThatMatchesTheGivenId() throws Exception {
+    mockMvc
+    .perform(get("/topics/details/1"))
+    .andDo(print())
+    .andExpect(status().isNotFound());
+  }
+  
+  @Test
+  void update_givenAnUpdateTopicFormDto_shouldReturnStatusOk_and_theUpdatedTopic() throws Exception {
+    Topic topic = new Topic("topic title", "topic message", new User(), new Course());
+    topic.setId(1L);
+    
+    when(topicRepository.findById(1L)).thenReturn(Optional.of(topic));
+
+    final String updateTopicFormDto = "{\n"
+        + "\"title\": \"title updated\",\n"
+        + "\"message\": \"just a message updated\"\n"
+        + "}";
+    
+    mockMvc
+      .perform(put("/topics/update/1")
+          .content(updateTopicFormDto)
+          .contentType(MediaType.APPLICATION_JSON)
+          .accept(MediaType.APPLICATION_JSON))
+      .andDo(print())
+      .andExpect(status().isOk())
+      .andExpect(jsonPath("$.title").value("title updated"))
+      .andExpect(jsonPath("$.message").value("just a message updated"));
+  }
+  
+  @Test
+  void update_shouldReturnStatusNotFound_ifThereIsNoTopicThatMatchesTheGivenId() throws Exception {
+    final String updateTopicFormDto = "{\n"
+        + "\"title\": \"title updated\",\n"
+        + "\"message\": \"just a message updated\"\n"
+        + "}";
+    
+    mockMvc
+    .perform(put("/topics/update/2")
+      .content(updateTopicFormDto)
+      .contentType(MediaType.APPLICATION_JSON)
+      .accept(MediaType.APPLICATION_JSON))
+    .andDo(print())
+    .andExpect(status().isNotFound());
+  }
+  
+  @Test
+  void delete_givenAnId_shouldReturnStatusOkIfTopicWasDeleted() throws Exception {
+    Topic topic = new Topic("topic title", "topic message", new User(), new Course());
+    topic.setId(1L);
+    
+    when(topicRepository.findById(1L)).thenReturn(Optional.of(topic));
+    
+    mockMvc
+      .perform(delete("/topics/delete/1"))
+      .andExpect(status().isOk());
+  }
+  
+  @Test
+  void delete_shouldReturnStatusNotFound_ifThereIsNoTopicThatMatchesTheGivenId() throws Exception {
+    mockMvc
+      .perform(delete("/topics/delete/2"))
       .andExpect(status().isNotFound());
   }
 }
