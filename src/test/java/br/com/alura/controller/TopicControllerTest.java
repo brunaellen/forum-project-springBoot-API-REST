@@ -117,11 +117,12 @@ class TopicControllerTest {
     TopicFormDto topicFormDto = new TopicFormDto("title test", "just a message test", course.getName());
     
     Topic topic = new Topic(topicFormDto.getTitle(), topicFormDto.getMessage() , course);
+    topic.setId(1L);
     
     when(courseRepository
         .findByName(topicFormDto.getCourseName()))
     .thenReturn(Optional.of(course));
-    
+
     when(topicRepository
         .save(new Topic(topicFormDto.getTitle(), topicFormDto.getMessage() , course)))
       .thenReturn(topic);
