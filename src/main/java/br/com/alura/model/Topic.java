@@ -21,7 +21,7 @@ public class Topic {
   private Long id;
   private String title;
   private String message;
-  private LocalDateTime dateOfCriation = LocalDateTime.now();
+  private LocalDateTime dateOfCriation;
   
   @Enumerated(EnumType.STRING)
   private StatusTopic status = StatusTopic.NOT_ANSWERED;
@@ -42,6 +42,7 @@ public class Topic {
     this.title = title;
     this.message = message;
     this.course = course;
+    this.dateOfCriation = LocalDateTime.now();
   }
 
   public Topic(String title, String message, User author, Course course) {
@@ -49,31 +50,7 @@ public class Topic {
     this.message = message;
     this.author = author;
     this.course = course;
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Topic other = (Topic) obj;
-    if (id == null) {
-      if (other.id != null)
-        return false;
-    } else if (!id.equals(other.id))
-      return false;
-    return true;
+    this.dateOfCriation = LocalDateTime.now();
   }
 
   public Long getId() {
@@ -138,5 +115,63 @@ public class Topic {
 
   public void setAnswers(List<Answer> answers) {
     this.answers = answers;
+  }
+  
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((answers == null) ? 0 : answers.hashCode());
+    result = prime * result + ((author == null) ? 0 : author.hashCode());
+    result = prime * result + ((course == null) ? 0 : course.hashCode());
+    result = prime * result + ((dateOfCriation == null) ? 0 : dateOfCriation.hashCode());
+    result = prime * result + ((message == null) ? 0 : message.hashCode());
+    result = prime * result + ((status == null) ? 0 : status.hashCode());
+    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Topic other = (Topic) obj;
+    if (answers == null) {
+      if (other.answers != null)
+        return false;
+    } else if (!answers.equals(other.answers))
+      return false;
+    if (author == null) {
+      if (other.author != null)
+        return false;
+    } else if (!author.equals(other.author))
+      return false;
+    if (course == null) {
+      if (other.course != null)
+        return false;
+    } else if (!course.equals(other.course))
+      return false;
+    if (dateOfCriation == null) {
+      if (other.dateOfCriation != null)
+        return false;
+    } else if (!dateOfCriation.equals(other.dateOfCriation))
+      return false;
+    if (message == null) {
+      if (other.message != null)
+        return false;
+    } else if (!message.equals(other.message))
+      return false;
+    if (status != other.status)
+      return false;
+    if (title == null) {
+      if (other.title != null)
+        return false;
+    } else if (!title.equals(other.title))
+      return false;
+    return true;
   }
 }
