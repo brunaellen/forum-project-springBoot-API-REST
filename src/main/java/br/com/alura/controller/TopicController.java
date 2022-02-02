@@ -110,7 +110,7 @@ public class TopicController {
     return ResponseEntity.ok(new TopicDto(topic.get())); 
   }
   
-  @DeleteMapping("delete/{id}")
+  @DeleteMapping("/delete/{id}")
   @Transactional
   public ResponseEntity<?> delete(@PathVariable Long id) {
     Optional<Topic> topic = topicRepository.findById(id);
