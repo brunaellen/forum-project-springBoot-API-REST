@@ -66,7 +66,7 @@ public class TopicController {
     }
   }
 
-  @PostMapping("register")
+  @PostMapping("/register")
   public ResponseEntity<TopicDto> register(@RequestBody @Valid TopicFormDto topicForm, UriComponentsBuilder uriBuilder) {
     Optional<Course> course = courseRepository.findByName(topicForm.getCourseName());
     
