@@ -71,13 +71,12 @@ public class Answer {
   public void setAuthor(User author) {
     this.author = author;
   }
-  
+
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((author == null) ? 0 : author.hashCode());
-    result = prime * result + ((dateOfCreation == null) ? 0 : dateOfCreation.hashCode());
     result = prime * result + ((message == null) ? 0 : message.hashCode());
     result = prime * result + ((solution == null) ? 0 : solution.hashCode());
     result = prime * result + ((topic == null) ? 0 : topic.hashCode());
@@ -97,11 +96,6 @@ public class Answer {
       if (other.author != null)
         return false;
     } else if (!author.equals(other.author))
-      return false;
-    if (dateOfCreation == null) {
-      if (other.dateOfCreation != null)
-        return false;
-    } else if (!dateOfCreation.equals(other.dateOfCreation))
       return false;
     if (message == null) {
       if (other.message != null)
