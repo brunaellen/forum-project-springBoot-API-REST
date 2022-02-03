@@ -42,7 +42,6 @@ public class Topic {
     this.title = title;
     this.message = message;
     this.course = course;
-    this.dateOfCriation = LocalDateTime.now();
   }
 
   public Topic(String title, String message, User author, Course course) {
@@ -50,7 +49,6 @@ public class Topic {
     this.message = message;
     this.author = author;
     this.course = course;
-    this.dateOfCriation = LocalDateTime.now();
   }
 
   public Long getId() {
@@ -81,8 +79,8 @@ public class Topic {
     return dateOfCriation;
   }
 
-  public void setDateOfCriation(LocalDateTime dateOfCriation) {
-    this.dateOfCriation = dateOfCriation;
+  public void setDateOfCriation() {
+    this.dateOfCriation = LocalDateTime.now();
   }
 
   public StatusTopic getStatus() {
@@ -116,7 +114,7 @@ public class Topic {
   public void setAnswers(List<Answer> answers) {
     this.answers = answers;
   }
-  
+
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -124,7 +122,6 @@ public class Topic {
     result = prime * result + ((answers == null) ? 0 : answers.hashCode());
     result = prime * result + ((author == null) ? 0 : author.hashCode());
     result = prime * result + ((course == null) ? 0 : course.hashCode());
-    result = prime * result + ((dateOfCriation == null) ? 0 : dateOfCriation.hashCode());
     result = prime * result + ((message == null) ? 0 : message.hashCode());
     result = prime * result + ((status == null) ? 0 : status.hashCode());
     result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -155,11 +152,6 @@ public class Topic {
         return false;
     } else if (!course.equals(other.course))
       return false;
-    if (dateOfCriation == null) {
-      if (other.dateOfCriation != null)
-        return false;
-    } else if (!dateOfCriation.equals(other.dateOfCriation))
-      return false;
     if (message == null) {
       if (other.message != null)
         return false;
@@ -173,5 +165,5 @@ public class Topic {
     } else if (!title.equals(other.title))
       return false;
     return true;
-  }
+  } 
 }
