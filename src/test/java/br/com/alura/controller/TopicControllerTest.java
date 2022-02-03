@@ -1,5 +1,6 @@
 package br.com.alura.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -26,6 +27,7 @@ import br.com.alura.model.Topic;
 import br.com.alura.model.User;
 import br.com.alura.repository.CourseRepository;
 import br.com.alura.repository.TopicRepository;
+
 
 @WebMvcTest(controllers = {TopicController.class})
 class TopicControllerTest {
@@ -122,6 +124,11 @@ class TopicControllerTest {
     when(courseRepository
         .findByName(topicFormDto.getCourseName()))
     .thenReturn(Optional.of(course));
+    
+    Topic t1 = new Topic(topicFormDto.getTitle(), topicFormDto.getMessage() , course);
+    Topic t2 = new Topic(topicFormDto.getTitle(), topicFormDto.getMessage() , course);
+    
+    assertThat(t1.equals(t2)).isTrue();
 
     when(topicRepository
         .save(new Topic(topicFormDto.getTitle(), topicFormDto.getMessage() , course)))
