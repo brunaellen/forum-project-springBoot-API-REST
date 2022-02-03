@@ -14,6 +14,11 @@ class TopicTest {
     Answer secondAnswer = new Answer();
     secondAnswer.setMessage("second message");
 
-    EqualsVerifier.simple().forClass(Topic.class).withPrefabValues(Answer.class, firstAnswer, secondAnswer).verify();
+    EqualsVerifier
+      .simple()
+      .forClass(Topic.class)
+      .withIgnoredFields("dateOfCriation")
+      .withPrefabValues(Answer.class, firstAnswer, secondAnswer)
+      .verify();
   }
 }
