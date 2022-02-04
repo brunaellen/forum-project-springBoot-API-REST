@@ -23,3 +23,13 @@ Users will clear up their doubts about the exercises, exchanging experiences wit
 
 `open target/site/jacoco/index.html`
 
+
+### Endpoints
+
+The application has six endpoints:
+* /topics/listAll;
+* /topics/listByCourseName;
+* /topics/register;
+* /topics/details/{id};
+* /topics/update/{id};
+* /topics/delete/{id};
