@@ -19,3 +19,7 @@ Users will clear up their doubts about the exercises, exchanging experiences wit
 
 `mvn spring-boot:run`
 
+## Test coverage
+
+`open target/site/jacoco/index.html`
+
