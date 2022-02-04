@@ -72,7 +72,7 @@ Response:
 
 #### GET /topics/listByCourseName;
 
-Endpoints that returns the topics registered given a course name:
+Endpoints that returns the topics registered, given a course name:
 
 Usage:
 
@@ -129,7 +129,7 @@ Response:
 
 #### GET /topics/details/1;
 
-Endpoints that returns the topics registered given a course name:
+Endpoints that returns the details of a topic given a topic id:
 
 Usage:
 
@@ -153,30 +153,14 @@ Response:
 ]
 ```
 
-#### POST /topics/update/1
+#### DELETE /topics/delete/1
 
-Endpoints that register a topic:
+Endpoints that delete a topic given a topic id:
 
 Usage:
 
 ```
-curl --location --request PUT 'http://localhost:8080/topics/update/1' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "title": "updated title",
-    "message": "updated message"
-}'
-```
-
-Response:
-
-```
-{
-  "id": 1,
-  "title": "updated title",
-  "message": "updated message",
-  "dateOfCriation": "2021-05-05T18:00:00"
-}
+curl --location --request DELETE 'http://localhost:8080/topics/delete/1'
 ```
 
 ## Project is still in development <img src="https://img.icons8.com/emoji/48/000000/woman-construction-worker.png"/>
