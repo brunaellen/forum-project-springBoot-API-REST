@@ -127,4 +127,56 @@ Response:
 }
 ```
 
+#### GET /topics/details/1;
+
+Endpoints that returns the topics registered given a course name:
+
+Usage:
+
+```
+curl --location --request GET 'http://localhost:8080/topics/details/1'
+```
+
+Response:
+
+```
+[
+  {
+    "id": 1,
+    "title": "query",
+    "message": "Error when creating a project",
+    "dateOfCriation": "2021-05-05T18:00:00",
+    "author": "user",
+    "status": "NOT_ANSWERED",
+    "answers": []
+  }
+]
+```
+
+#### POST /topics/update/1
+
+Endpoints that register a topic:
+
+Usage:
+
+```
+curl --location --request PUT 'http://localhost:8080/topics/update/1' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title": "updated title",
+    "message": "updated message"
+}'
+```
+
+Response:
+
+```
+{
+  "id": 1,
+  "title": "updated title",
+  "message": "updated message",
+  "dateOfCriation": "2021-05-05T18:00:00"
+}
+```
+
 ## Project is still in development <img src="https://img.icons8.com/emoji/48/000000/woman-construction-worker.png"/>
