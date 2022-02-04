@@ -34,6 +34,72 @@ The application has six endpoints:
 * /topics/update/{id};
 * /topics/delete/{id};
 
+
+#### GET /topics/listAll
+
+Endpoints that returns all topics registered:
+
+Usage:
+
+```
+curl --location --request GET 'http://localhost:8080/topics/listAll'
+```
+
+Response:
+
+```
+[
+  {
+    "id": 1,
+    "title": "query",
+    "message": "Error when creating a project",
+    "dateOfCriation": "2021-05-05T18:00:00"
+  },
+  {
+    "id": 2,
+    "title": "query 2",
+    "message": "Project is not compiling",
+    "dateOfCriation": "2021-05-05T19:00:00"
+  },
+  {
+    "id": 3,
+    "title": "query 3",
+    "message": "Tag HTML",
+    "dateOfCriation": "2021-05-05T20:00:00"
+  }
+]
+```
+
+#### GET /topics/listByCourseName;
+
+Endpoints that returns the topics registered:
+
+Usage:
+
+```
+curl --location --request GET 'http://localhost:8080/topics/listByCourseName?courseName=Spring Boot'
+```
+
+Response:
+
+```
+[
+  {
+    "id": 1,
+    "title": "query",
+    "message": "Error when creating a project",
+    "dateOfCriation": "2021-05-05T18:00:00"
+  },
+  {
+    "id": 2,
+    "title": "query 2",
+    "message": "Project is not compiling",
+    "dateOfCriation": "2021-05-05T19:00:00"
+  }
+]
+```
+
+
 #### POST /bankAccount/details
 
 Endpoints that returns the bank account details:
@@ -58,38 +124,6 @@ Response:
     "balance": 800,
     "availableToSpend": 1000,
     "statements": []
-}
-```
-
-#### GET /atm/transactions
-
-Endpoints that returns the ATM transactions:
-
-Usage:
-
-```
-curl --location --request GET 'http://localhost:8080/atm/transactions'
-```
-
-Response:
-
-```
-{
-    "statements": [
-        {
-            "type": "WITHDRAW",
-            "amount": 500,
-            "date": "2022-01-08T11:24:16.715+00:00"
-        }
-    ],
-    "notesAvailable": {
-        "50": 0,
-        "20": 30,
-        "10": 30,
-        "5": 20
-    },
-    "date": "2022-01-08T11:28:48.073+00:00",
-    "balance": 1000.0
 }
 ```
 
