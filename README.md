@@ -72,7 +72,7 @@ Response:
 
 #### GET /topics/listByCourseName;
 
-Endpoints that returns the topics registered:
+Endpoints that returns the topics registered given a course name:
 
 Usage:
 
@@ -100,30 +100,30 @@ Response:
 ```
 
 
-#### POST /bankAccount/details
+#### POST /topics/register
 
-Endpoints that returns the bank account details:
+Endpoints that register a topic:
 
 Usage:
 
 ```
-curl --location --request POST 'http://localhost:8080/bankAccount/details' \
+curl --location --request POST 'http://localhost:8080/topics/register' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "accountNumber": 123456789,
-    "pin": 1234
-}'
+    "title": "just a title test 1",
+    "message":"just a message test",
+    "courseName":"Spring Boot"
+}
 ```
 
 Response:
 
 ```
 {
-    "accountNumber": 123456789,
-    "date": "2022-01-08T11:21:20.955+00:00",
-    "balance": 800,
-    "availableToSpend": 1000,
-    "statements": []
+  "id": 4,
+  "title": "just a title test 1",
+  "message": "just a message test",
+  "dateOfCriation": null
 }
 ```
 
