@@ -127,9 +127,9 @@ Response:
 }
 ```
 
-#### GET /topics/details/1;
+#### GET /topics/details/1
 
-Endpoints that returns the details of a topic given a topic id:
+Endpoints that returns the details of a topic, given a topic id:
 
 Usage:
 
@@ -155,7 +155,7 @@ Response:
 
 #### DELETE /topics/delete/1
 
-Endpoints that delete a topic given a topic id:
+Endpoints that delete a topic, given a topic id:
 
 Usage:
 
