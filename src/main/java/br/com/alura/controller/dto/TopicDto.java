@@ -1,8 +1,8 @@
 package br.com.alura.controller.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
 
 import br.com.alura.model.Topic;
 
@@ -38,8 +38,8 @@ public class TopicDto {
     return dateOfCriation;
   }
 
-  public static List<TopicDto> convertATopicListToTopicDtoList(List<Topic> topicAsList) {
-    return topicAsList.stream().map(TopicDto::new).collect(Collectors.toList());
+  public static Page<TopicDto> convertATopicListToTopicDtoList(Page<Topic> allTopics) {
+    return allTopics.map(TopicDto::new);
   }
 
   @Override
