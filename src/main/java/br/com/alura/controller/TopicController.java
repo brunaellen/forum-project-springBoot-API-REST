@@ -58,7 +58,8 @@ public class TopicController {
   
   @GetMapping("/listByCourseName")
   public ResponseEntity<Page<TopicDto>> listAllByCourseName(@RequestParam String courseName,
-      Pageable pagination) {    
+      @PageableDefault(sort = "id", direction = Direction.DESC, page = 0, size = 10)
+    Pageable pagination) {    
     
     if(courseName == null || courseName.isBlank()) {
       return ResponseEntity.badRequest().build();
