@@ -18,6 +18,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -49,22 +54,31 @@ class TopicControllerTest {
     allTopics.add(firstTopic);
     allTopics.add(secondTopic);
     
-    when(topicRepository.findAll()).thenReturn(allTopics);
+    Pageable pagination = PageRequest.of(0, 2, Direction.ASC, "title");
+    Page<Topic> topicsWithPagination = new PageImpl<>(allTopics);
+    
+    when(topicRepository.findAll(pagination)).thenReturn(topicsWithPagination);
     
     mockMvc
-    .perform(get("/topics/listAll"))
+    .perform(get("/topics/listAll?page=0&size=2&sort=title,asc"))
     .andDo(print())
     .andExpect(status().isOk())
-    .andExpect(jsonPath("$.[0].title").value("topic title"))
-    .andExpect(jsonPath("$.[0].message").value("topic message"))
-    .andExpect(jsonPath("$.[1].title").value("second title"))
-    .andExpect(jsonPath("$.[1].message").value("second message"));
+    .andExpect(jsonPath("$.content[0].title").value("topic title"))
+    .andExpect(jsonPath("$.content[0].message").value("topic message"))
+    .andExpect(jsonPath("$.content[1].title").value("second title"))
+    .andExpect(jsonPath("$.content[1].message").value("second message"));
   }
   
   @Test
   void listAll_shouldReturnStatusNotFound_ifThereAreNoTopicsRegistered() throws Exception {
+    List<Topic> allTopics = new ArrayList<>(); 
+    Pageable pagination = PageRequest.of(0, 2, Direction.ASC, "title");
+    Page<Topic> topicsWithPagination = new PageImpl<>(allTopics);
+    
+    when(topicRepository.findAll(pagination)).thenReturn(topicsWithPagination);
+    
     mockMvc
-      .perform(get("/topics/listAll"))
+      .perform(get("/topics/listAll?page=0&size=2&sort=title,asc"))
       .andDo(print())
       .andExpect(status().isNotFound());
   }
@@ -77,22 +91,33 @@ class TopicControllerTest {
     allTopics.add(firstTopic);
     allTopics.add(secondTopic);
     
-    when(topicRepository.findByCourse_Name("course name")).thenReturn(allTopics);
+    Pageable pagination = PageRequest.of(0, 2, Direction.ASC, "title");
+    Page<Topic> topicsWithPagination = new PageImpl<>(allTopics, pagination, 2L);
+    
+    when(topicRepository.findByCourse_Name("course name", pagination))
+      .thenReturn(topicsWithPagination);
     
     mockMvc
-    .perform(get("/topics/listByCourseName?courseName=course name"))
+    .perform(get("/topics/listByCourseName?courseName=course name&page=0&size=2&sort=title,asc"))
     .andDo(print())
     .andExpect(status().isOk())
-    .andExpect(jsonPath("$.[0].title").value("topic title"))
-    .andExpect(jsonPath("$.[0].message").value("topic message"))
-    .andExpect(jsonPath("$.[1].title").value("second title"))
-    .andExpect(jsonPath("$.[1].message").value("second message"));
+    .andExpect(jsonPath("$.content[0].title").value("topic title"))
+    .andExpect(jsonPath("$.content[0].message").value("topic message"))
+    .andExpect(jsonPath("$.content[1].title").value("second title"))
+    .andExpect(jsonPath("$.content[1].message").value("second message"));
   }
   
   @Test
   void listAllByCourseName_shouldReturnStatusNotFound_ifThereAreNoTopicsRegistered() throws Exception {
+    List<Topic> allTopics = new ArrayList<>(); 
+    Pageable pagination = PageRequest.of(0, 2, Direction.ASC, "title");
+    Page<Topic> topicsWithPagination = new PageImpl<>(allTopics);
+    
+    when(topicRepository.findByCourse_Name("course name", pagination))
+    .thenReturn(topicsWithPagination);
+    
     mockMvc
-    .perform(get("/topics/listByCourseName?courseName=course name"))
+    .perform(get("/topics/listByCourseName?courseName=course name&page=0&size=2&sort=title,asc"))
     .andDo(print())
     .andExpect(status().isNotFound());
   }
