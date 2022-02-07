@@ -8,7 +8,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -55,13 +54,11 @@ public class TopicController {
   
   @GetMapping("/listByCourseName")
   public ResponseEntity<Page<TopicDto>> listAllByCourseName(@RequestParam String courseName,
-      @RequestParam int pageNumber, @RequestParam int size) {    
+      Pageable pagination) {    
     
     if(courseName == null || courseName.isBlank()) {
       return ResponseEntity.badRequest().build();
     }
-    
-    Pageable pagination = PageRequest.of(pageNumber, size);
     
     Page<TopicDto> topicDtoList = TopicDto
         .convertATopicListToTopicDtoList(topicRepository
