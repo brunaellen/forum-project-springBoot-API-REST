@@ -2,6 +2,7 @@ package br.com.alura.config.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -9,6 +10,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
+  
+  //method for configuration of authentication
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+  }
   
   //method for configuration of authorization
   @Override
