@@ -82,6 +82,7 @@ public class TopicController {
 
   @PostMapping("/register")
   @Transactional
+  @CacheEvict(value = {"listOfTopics", "topicsByCourseName"}, allEntries = true)
   public ResponseEntity<TopicDto> register(@RequestBody @Valid TopicFormDto topicForm, UriComponentsBuilder uriBuilder) {
     Optional<Course> course = courseRepository.findByName(topicForm.getCourseName());
     
