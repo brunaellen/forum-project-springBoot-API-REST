@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -124,6 +125,7 @@ public class TopicController {
   
   @DeleteMapping("/delete/{id}")
   @Transactional
+  @CacheEvict(value = "listOfTopics", allEntries = true)
   public ResponseEntity<?> delete(@PathVariable Long id) {
     Optional<Topic> topic = topicRepository.findById(id);
     
