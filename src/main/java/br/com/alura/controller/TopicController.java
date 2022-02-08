@@ -111,6 +111,7 @@ public class TopicController {
   
   @PutMapping("/update/{id}")
   @Transactional
+  @CacheEvict(value = {"listOfTopics", "topicsByCourseName"}, allEntries = true)
   public ResponseEntity<TopicDto> update(@PathVariable Long id, @RequestBody @Valid UpdateTopicFormDto updateTopicFormDto) {
     Optional<Topic> topic = topicRepository.findById(id);
     
