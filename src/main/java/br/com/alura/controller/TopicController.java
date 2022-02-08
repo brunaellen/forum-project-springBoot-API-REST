@@ -60,6 +60,7 @@ public class TopicController {
   }
   
   @GetMapping("/listByCourseName")
+  @Cacheable(value = "topicsByCourseName")
   public ResponseEntity<Page<TopicDto>> listAllByCourseName(@RequestParam String courseName,
       @PageableDefault(sort = "id", direction = Direction.DESC, page = 0, size = 10)
     Pageable pagination) {    
@@ -125,7 +126,7 @@ public class TopicController {
   
   @DeleteMapping("/delete/{id}")
   @Transactional
-  @CacheEvict(value = "listOfTopics", allEntries = true)
+  @CacheEvict(value = {"listOfTopics", "topicsByCourseName"}, allEntries = true)
   public ResponseEntity<?> delete(@PathVariable Long id) {
     Optional<Topic> topic = topicRepository.findById(id);
     
