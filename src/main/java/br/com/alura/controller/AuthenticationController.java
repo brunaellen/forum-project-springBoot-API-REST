@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,13 @@ public class AuthenticationController {
     UsernamePasswordAuthenticationToken loginDetails = new UsernamePasswordAuthenticationToken(form.getEmail(),
         form.getPassword());
     
-    Authentication authentication = authManager.authenticate(loginDetails);
-    return null;
+    try {
+      Authentication authentication = authManager.authenticate(loginDetails);
+      return ResponseEntity.ok().build();
+    } catch (AuthenticationException e) {
+      return ResponseEntity.badRequest().build();
+    }
+    
+    
   }
 }
