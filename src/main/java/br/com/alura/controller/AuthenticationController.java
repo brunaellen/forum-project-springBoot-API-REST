@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.alura.config.security.TokenService;
 import br.com.alura.controller.dto.LoginFormDto;
 
 @RestController
@@ -22,6 +23,9 @@ public class AuthenticationController {
   @Autowired
   private AuthenticationManager authManager;
   
+  @Autowired
+  private TokenService tokenService;
+  
   @PostMapping
   public ResponseEntity<?> authenticate(@RequestBody @Valid LoginFormDto form) {
     UsernamePasswordAuthenticationToken loginDetails = new UsernamePasswordAuthenticationToken(form.getEmail(),
@@ -29,6 +33,8 @@ public class AuthenticationController {
     
     try {
       Authentication authentication = authManager.authenticate(loginDetails);
+      String token = tokenService.generateToken(authentication);
+      
       return ResponseEntity.ok().build();
     } catch (AuthenticationException e) {
       return ResponseEntity.badRequest().build();
