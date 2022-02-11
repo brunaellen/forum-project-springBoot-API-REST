@@ -1,4 +1,4 @@
-package br.com.alura.config.security;
+package br.com.alura.config.security.service;
 
 import java.util.Optional;
 

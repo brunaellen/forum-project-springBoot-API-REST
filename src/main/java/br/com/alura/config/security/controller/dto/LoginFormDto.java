@@ -1,4 +1,4 @@
-package br.com.alura.controller.dto;
+package br.com.alura.config.security.controller.dto;
 
 public class LoginFormDto {
   private String email;
