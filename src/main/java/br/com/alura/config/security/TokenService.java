@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 
 import br.com.alura.model.User;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class TokenService {
   
   @Value(value = "${forum.jwt.expirationTimeMilliseconds}")
   private String expirationTimeMilliseconds;
+  
+  @Value(value = "${forum.jwt.secret}")
+  private String secretKey;
 
   public String generateToken(Authentication authentication) {
     User userLoggedIn = (User) authentication.getPrincipal();
@@ -24,7 +28,8 @@ public class TokenService {
         .setIssuer("API of Alura Forum")
         .setSubject(userLoggedIn.getId().toString())
         .setIssuedAt(generationDate)
-        .setExpiration(expirationDate);
+        .setExpiration(expirationDate)
+        .signWith(SignatureAlgorithm.HS256, secretKey);
   }
   
 }
