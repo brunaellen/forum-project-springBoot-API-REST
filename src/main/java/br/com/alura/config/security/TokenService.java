@@ -9,7 +9,8 @@ import io.jsonwebtoken.Jwts;
 public class TokenService {
 
   public String generateToken(Authentication authentication) {
-    return Jwts.builder();
+    return Jwts.builder()
+        .setIssuer("API of Alura Forum");
   }
   
 }
