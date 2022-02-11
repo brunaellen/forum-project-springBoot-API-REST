@@ -29,7 +29,8 @@ public class TokenService {
         .setSubject(userLoggedIn.getId().toString())
         .setIssuedAt(generationDate)
         .setExpiration(expirationDate)
-        .signWith(SignatureAlgorithm.HS256, secretKey);
+        .signWith(SignatureAlgorithm.HS256, secretKey)
+        .compact();
   }
   
 }
