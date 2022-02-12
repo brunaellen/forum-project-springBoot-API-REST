@@ -24,7 +24,7 @@ Users will clear up their doubts about the exercises, exchanging experiences wit
 `open target/site/jacoco/index.html`
 
 
-### Endpoints
+## Endpoints
 
 The application has six endpoints:
 * /auth
