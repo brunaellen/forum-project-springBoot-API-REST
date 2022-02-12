@@ -36,8 +36,6 @@ The application has six endpoints:
 * /topics/delete/{id}
 
 
-
-
 #### POST /auth
 
 Endpoints for user authentication (JWT):
