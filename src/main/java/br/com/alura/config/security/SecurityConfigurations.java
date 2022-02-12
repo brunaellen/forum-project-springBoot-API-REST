@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import br.com.alura.config.security.service.AuthenticationService;
 import br.com.alura.config.security.service.TokenService;
+import br.com.alura.repository.UserRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -26,6 +27,9 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
   
   @Autowired
   private TokenService tokenService;
+
+  @Autowired
+  private UserRepository userRepository;
   
   @Override
   @Bean
@@ -48,7 +52,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
       .anyRequest().authenticated()
       .and().csrf().disable()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-      .and().addFilterBefore(new AuthenticationByTokenFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
+      .and().addFilterBefore(new AuthenticationByTokenFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter.class);
   }
   
   @Override
