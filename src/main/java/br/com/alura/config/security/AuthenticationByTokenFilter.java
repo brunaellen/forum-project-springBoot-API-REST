@@ -9,14 +9,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import br.com.alura.config.security.service.TokenService;
+
 public class AuthenticationByTokenFilter extends OncePerRequestFilter{
   
   private final String HEADER = "Authorization";
   private final String TYPE = "Bearer ";
+  private TokenService tokenService;
+
+  public AuthenticationByTokenFilter(TokenService tokenService) {
+    this.tokenService = tokenService;
+  }
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
+
+    String token = recoverToken(request);
+    boolean validToken = tokenService.isTokenValid(token);
   }
 
   private String recoverToken(HttpServletRequest request) {
