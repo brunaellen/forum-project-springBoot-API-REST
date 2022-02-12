@@ -5,7 +5,7 @@ Users will clear up their doubts about the exercises, exchanging experiences wit
 
 ### Atm application was made using:
 
-* Spring Boot
+* Spring Boot 2.6.1
 * Java 11
 * maven
 * H2 database
@@ -27,12 +27,41 @@ Users will clear up their doubts about the exercises, exchanging experiences wit
 ### Endpoints
 
 The application has six endpoints:
-* /topics/listAll;
-* /topics/listByCourseName;
-* /topics/register;
-* /topics/details/{id};
-* /topics/update/{id};
-* /topics/delete/{id};
+* /auth
+* /topics/listAll
+* /topics/listByCourseName
+* /topics/register
+* /topics/details/{id}
+* /topics/update/{id}
+* /topics/delete/{id}
+
+
+#### POST /auth
+
+Endpoints for user authentication (JWT):
+
+Usage:
+
+```
+curl --location --request POST 'http://localhost:8080/auth' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "user@email.com",
+    "password": "123456"
+}'
+```
+
+Response:
+
+```
+{
+  "token": "eyJhbGciOiJIUzI1NiJ9.
+    eyJpc3MiOiJBUEkgb2YgQWx1cmEgRm9ydW0iLCJzdWIiOiIxIiwiaWF0IjoxNjQ0NzA1MDg5LCJleHAiOjE2NDQ3MDY4ODl9.
+    6cozKecWTlN_LTNJQXkaZewTiU_PqXSRg80JnCR0Yr8",
+
+  "type": "Bearer"
+}
+```
 
 
 #### GET /topics/listAll
@@ -43,6 +72,10 @@ Usage:
 
 ```
 curl --location --request GET 'http://localhost:8080/topics/listAll'
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.
+  eyJpc3MiOiJBUEkgb2YgQWx1cmEgRm9ydW0iLCJzdWIiOiIxIiwiaWF0IjoxNjQ0NzA1MDg5LCJleHAiOjE2NDQ3MDY4ODl9.
+  6cozKecWTlN_LTNJQXkaZewTiU_PqXSRg80JnCR0Yr8'
 ```
 
 Response:
@@ -78,6 +111,10 @@ Usage:
 
 ```
 curl --location --request GET 'http://localhost:8080/topics/listByCourseName?courseName=Spring Boot'
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.
+  eyJpc3MiOiJBUEkgb2YgQWx1cmEgRm9ydW0iLCJzdWIiOiIxIiwiaWF0IjoxNjQ0NzA1MDg5LCJleHAiOjE2NDQ3MDY4ODl9.
+  6cozKecWTlN_LTNJQXkaZewTiU_PqXSRg80JnCR0Yr8'
 ```
 
 Response:
@@ -109,6 +146,9 @@ Usage:
 ```
 curl --location --request POST 'http://localhost:8080/topics/register' \
 --header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.
+  eyJpc3MiOiJBUEkgb2YgQWx1cmEgRm9ydW0iLCJzdWIiOiIxIiwiaWF0IjoxNjQ0NzA1MDg5LCJleHAiOjE2NDQ3MDY4ODl9.
+  6cozKecWTlN_LTNJQXkaZewTiU_PqXSRg80JnCR0Yr8'
 --data-raw '{
     "title": "just a title test 1",
     "message":"just a message test",
@@ -135,6 +175,10 @@ Usage:
 
 ```
 curl --location --request GET 'http://localhost:8080/topics/details/1'
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.
+  eyJpc3MiOiJBUEkgb2YgQWx1cmEgRm9ydW0iLCJzdWIiOiIxIiwiaWF0IjoxNjQ0NzA1MDg5LCJleHAiOjE2NDQ3MDY4ODl9.
+  6cozKecWTlN_LTNJQXkaZewTiU_PqXSRg80JnCR0Yr8'
 ```
 
 Response:
@@ -161,6 +205,10 @@ Usage:
 
 ```
 curl --location --request DELETE 'http://localhost:8080/topics/delete/1'
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.
+  eyJpc3MiOiJBUEkgb2YgQWx1cmEgRm9ydW0iLCJzdWIiOiIxIiwiaWF0IjoxNjQ0NzA1MDg5LCJleHAiOjE2NDQ3MDY4ODl9.
+  6cozKecWTlN_LTNJQXkaZewTiU_PqXSRg80JnCR0Yr8'
 ```
 
 ## Project is still in development <img src="https://img.icons8.com/emoji/48/000000/woman-construction-worker.png"/>
