@@ -49,7 +49,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
     http.authorizeHttpRequests()
       .antMatchers(HttpMethod.GET, "/topics/listAll").permitAll()
       .antMatchers(HttpMethod.POST, "/auth").permitAll()
-      .anyRequest().authenticated()
+      .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
       .and().csrf().disable()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and().addFilterBefore(new AuthenticationByTokenFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter.class);
