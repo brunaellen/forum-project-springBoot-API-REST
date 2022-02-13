@@ -67,6 +67,7 @@ public class User implements UserDetails {
     result = prime * result + ((email == null) ? 0 : email.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());
     result = prime * result + ((password == null) ? 0 : password.hashCode());
+    result = prime * result + ((role == null) ? 0 : role.hashCode());
     return result;
   }
 
@@ -93,6 +94,11 @@ public class User implements UserDetails {
       if (other.password != null)
         return false;
     } else if (!password.equals(other.password))
+      return false;
+    if (role == null) {
+      if (other.role != null)
+        return false;
+    } else if (!role.equals(other.role))
       return false;
     return true;
   }
