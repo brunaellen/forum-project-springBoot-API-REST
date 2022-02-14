@@ -50,6 +50,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
       .antMatchers(HttpMethod.GET, "/topics/listAll").permitAll()
       .antMatchers(HttpMethod.POST, "/auth").permitAll()
       .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+      .anyRequest().authenticated()
       .and().csrf().disable()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and().addFilterBefore(new AuthenticationByTokenFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter.class);
@@ -57,6 +58,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
   
   @Override
   public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers("/h2-console/**");
+    web.ignoring()
+    .antMatchers("/h2-console/**", "/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
   }
 }
