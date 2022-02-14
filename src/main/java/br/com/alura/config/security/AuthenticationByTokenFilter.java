@@ -18,8 +18,8 @@ import br.com.alura.repository.UserRepository;
 
 public class AuthenticationByTokenFilter extends OncePerRequestFilter{
   
-  private final String HEADER = "Authorization";
-  private final String TYPE = "Bearer ";
+  private static final String HEADER = "Authorization";
+  private static final String TYPE = "Bearer ";
   private TokenService tokenService;
   private UserRepository userRepository;
 
@@ -64,8 +64,9 @@ public class AuthenticationByTokenFilter extends OncePerRequestFilter{
     
     if(token == null || token.isEmpty() || !token.startsWith(TYPE)) {
       return null;
-    }
-    return token.substring(TYPE.length(), token.length());
+    } else {
+      return token.substring(TYPE.length(), token.length());
+    } 
   }
 
 }
