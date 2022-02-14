@@ -23,6 +23,9 @@ Users will clear up their doubts about the exercises, exchanging experiences wit
 
 `open target/site/jacoco/index.html`
 
+## Checking the API documentation through Swagger
+
+`http://localhost:8080/swagger-ui.html`
 
 ## Endpoints
 
