@@ -47,9 +47,10 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests()
-      .antMatchers(HttpMethod.GET, "/topics/listAll").permitAll()
+      .antMatchers(HttpMethod.GET, "/topics/listAll").authenticated()
       .antMatchers(HttpMethod.POST, "/auth").permitAll()
       .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+      .antMatchers(HttpMethod.DELETE, "/topics/delete/**").hasRole("ADMIN")
       .anyRequest().authenticated()
       .and().csrf().disable()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
