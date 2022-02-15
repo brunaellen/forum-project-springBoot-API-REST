@@ -26,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import br.com.alura.controller.dto.TopicFormDto;
@@ -39,6 +40,7 @@ import br.com.alura.repository.TopicRepository;
 @WebMvcTest(controllers = {TopicController.class})
 @WithMockUser(roles = "ADMIN")
 @Import(CustomSecurityConfiguration.class)
+@ActiveProfiles("production")
 class TopicControllerTest {
   
   @Autowired
