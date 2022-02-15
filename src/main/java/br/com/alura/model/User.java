@@ -52,10 +52,6 @@ public class User implements UserDetails {
     this.email = email;
   }
 
-  public String getPassword() {
-    return password;
-  }
-
   public void setPassword(String password) {
     this.password = password;
   }
@@ -131,5 +127,10 @@ public class User implements UserDetails {
   @Override
   public boolean isEnabled() {
     return true;
+  }
+
+  @Override
+  public String getPassword() {
+    return password;
   }
 }
