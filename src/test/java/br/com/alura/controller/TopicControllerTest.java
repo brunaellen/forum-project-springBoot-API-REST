@@ -37,7 +37,7 @@ import br.com.alura.repository.TopicRepository;
 
 
 @WebMvcTest(controllers = {TopicController.class})
-@WithMockUser
+@WithMockUser(roles = "ADMIN")
 @Import(CustomSecurityConfiguration.class)
 class TopicControllerTest {
   
