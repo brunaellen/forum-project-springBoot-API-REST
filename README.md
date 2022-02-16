@@ -19,6 +19,14 @@ Users will clear up their doubts about the exercises, exchanging experiences wit
 
 `mvn spring-boot:run`
 
+### Building docker container
+
+`docker build -t alura-forum .`
+
+### Running with Docker
+
+`docker run -d -it --rm -p 8080:8080 -e SPRING_PROFILES_ACTIVE='production' -e FORUM_DATABASE_URL='jdbc:h2:mem:alura-forum' -e FORUM_DATABASE_USERNAME='sa' -e FORUM_DATABASE_PASSWORD='' -e FORUM_JWT_SECRET='4&uQQMsy7eCD2RTHbbRforumAlura-0.0.1-SNAPSHOT.jari$6uLU&^$3L2@E#&S#EEqxYFLTY%cQqv@ZM*Xx7R$ey#K*n44nVjqASMJ3VeQndDv%zuu9hdf23lss5$nfvQ#e37H4L5#3omtxHn6caRzaU8b&4oqfQAV7#76ujsnjC$Rx4isJMskACz3p$#$t43W8gBHvCS@viPBaJmdmfSSe#XF7NTcpu2Vu@DFgvnmRrjA2A#eKSaQMi$dqR5Lm86EYqHAa3%' --name forum alura-forum:latest`
+
 ## Test coverage
 
 `open target/site/jacoco/index.html`
