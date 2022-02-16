@@ -20,7 +20,7 @@ import br.com.alura.config.security.service.TokenService;
 
 @RestController
 @RequestMapping("/auth")
-@Profile("production")
+@Profile({"production", "test"})
 public class AuthenticationController {
   
   @Autowired
